@@ -48,10 +48,12 @@ public class GraphTest extends TestCase {
 
         tmp = graph.findPath(11, 0);
         assertNotNull(tmp);
+        tmp.stream().forEach(i -> {System.out.println(i);}); 
         assertEquals(3, tmp.size());
 
         tmp = graph.findPath(11, 1);     
         assertNotNull(tmp);
+        tmp.stream().forEach(i -> {System.out.println(i);}); 
         assertEquals(4, tmp.size());
     }
 }

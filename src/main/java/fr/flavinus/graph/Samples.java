@@ -1,73 +1,67 @@
 package fr.flavinus.graph;
 
 public class Samples {
-	
 
-	
 	public static Graph empty() {
         return new Graph(0);
 	}
 
-	public static Graph sample1() {
-        
-        Graph graph = new Graph(4);
-                
-		graph.addLink(1, 3);
-		graph.addLink(2, 3);
-		graph.addLink(0, 2);
-		graph.addLink(0, 1);
- 
-        return graph;
+	//  1
+	// 0 3
+	//  2
+	public static Graph smallDiamond() {
+        return new Graph(4)
+			.addLink(1, 3)
+			.addLink(2, 3)
+			.addLink(0, 2)
+			.addLink(0, 1);
 	}
 
-	public static Graph sampleSmallNotConnexe() {
-        
-        Graph graph = new Graph(6);
-                
-		graph.addLink(0, 1);
-		graph.addLink(1, 2);
 
-		graph.addLink(3, 4);
-		graph.addLink(4, 5);
- 
-        return graph;
+	// 0-1-2 3-4-5
+	public static Graph sampleSmallNotConnexe() {
+        return new Graph(6)
+			.addLink(0, 1)
+			.addLink(1, 2)
+			.addLink(3, 4)
+			.addLink(4, 5);
 	}
 
 	// Samples from
 	// https://www.codingame.com/ide/puzzle/death-first-search-episode-1
 	public static Graph sample2() {
         
-        Graph graph = new Graph(12);
-                
-		graph.addLink(11, 6);
-		graph.addLink(0, 9);
-		graph.addLink(1, 2);
-		graph.addLink(0, 1);
-		graph.addLink(10, 1);
-		graph.addLink(11, 5);
-		graph.addLink(2, 3);
-		graph.addLink(4, 5);
-		graph.addLink(8, 9);
-		graph.addLink(6, 7);
-		graph.addLink(7, 8);
-		graph.addLink(0, 6);
-		graph.addLink(3, 4);
-		graph.addLink(0, 2);
-		graph.addLink(11, 7);
-		graph.addLink(0, 8);
-		graph.addLink(0, 4);
-		graph.addLink(9, 10);
-		graph.addLink(0, 5);
-		graph.addLink(0, 7);
-		graph.addLink(0, 3);
-		graph.addLink(0, 10);
-		graph.addLink(5, 6);
- 
-        return graph;
+        return new Graph(12)
+			
+			.addLink(0, 1)
+			.addLink(0, 2)
+			.addLink(0, 3)
+			.addLink(0, 4)
+			.addLink(0, 5)
+			.addLink(0, 6)
+			.addLink(0, 7)
+			.addLink(0, 8)
+			.addLink(0, 9)
+			.addLink(0, 10)
+
+			.addLink(1, 2)
+			.addLink(2, 3)
+			.addLink(3, 4)
+			.addLink(4, 5)
+			.addLink(5, 6)
+			.addLink(6, 7)
+			.addLink(7, 8)
+			.addLink(8, 9)
+			.addLink(9, 10)
+			.addLink(10, 1)
+
+			.addLink(11, 5)
+			.addLink(11, 6)
+			.addLink(11, 7);
 	}
 
 		
-/* Triple étoile
+/* Triple étoile 38 nodes
  * 
 Add link 28 to 36
 Add link 0 to 2
@@ -148,8 +142,5 @@ Add link 6 to 7
 Add link 37 to 1
 Add link 37 to 24
 Add link 35 to 2
-Add exit 0
-Add exit 18
-Add exit 28
 */	
 }
