@@ -26,34 +26,28 @@ public class GraphTest extends TestCase {
         Graph graph;
 
         //graph = Samples.empty();
-        //tmp = graph.findPath(0, 0); // TODO: choose beavior => null ?
-        //assertNull(tmp);
+        //tmp = graph.getShorterPath(0, 0); // TODO: choose beavior => null ?
+        //assertEquals(0, tmp.size());
 
         // Small not connexe graph
         graph = Samples.sampleSmallNotConnexe();
 
-        tmp = graph.findPath(0, 2);
-        assertNotNull(tmp);
+        tmp = graph.getShorterPath(0, 2);
         assertEquals(3, tmp.size());
 
-        tmp = graph.findPath(3, 5);
-        assertNotNull(tmp);
+        tmp = graph.getShorterPath(3, 5);
         assertEquals(3, tmp.size());
 
-        tmp = graph.findPath(1, 5);
-        assertNull(tmp);
+        tmp = graph.getShorterPath(1, 5);
+        assertEquals(0, tmp.size());
 
         // name
         graph = Samples.sample2();
 
-        tmp = graph.findPath(11, 0);
-        assertNotNull(tmp);
-        tmp.stream().forEach(i -> {System.out.println(i);}); 
+        tmp = graph.getShorterPath(11, 0);
         assertEquals(3, tmp.size());
 
-        tmp = graph.findPath(11, 1);     
-        assertNotNull(tmp);
-        tmp.stream().forEach(i -> {System.out.println(i);}); 
+        tmp = graph.getShorterPath(11, 1);     
         assertEquals(4, tmp.size());
     }
 }

@@ -2,8 +2,8 @@ package fr.flavinus.graph;
 
 import java.util.*;
 
-// Graph non orienté
-// Les liens sont doublement représentés (tampis pour la mémoire, ca couterait trop de ne pas l'avoir pour les recherches de chemins)
+// Graph is not oriented
+// Linls are represented twice (better while searching paths)
 public class Graph {
 
 	protected HashMap<Integer, HashSet<Integer>> nodes = new HashMap<>();
@@ -13,9 +13,8 @@ public class Graph {
 		for (int i = 0; i < n; i++) addNode(i);
 	}
 
-	public Graph addNode(int index) {
+	public void addNode(int index) {
 		nodes.put(index, new HashSet<>());
-		return this;
 	}
 
 	public Graph addLink(int n1, int n2) {
@@ -24,10 +23,9 @@ public class Graph {
 		return this;
 	}
 
-	public Graph delLink(int n1, int n2) {
+	public void delLink(int n1, int n2) {
 		nodes.get(n1).remove(n2);
 		nodes.get(n2).remove(n1);
-		return this;
 	}
 
 	public Graph addExit(int i) {
@@ -39,10 +37,6 @@ public class Graph {
 		return nodes.get(n1).contains(n2);
 	}
 
-	public int countLinks(int n) {
-		return nodes.get(n).size();
-	}
-
 	public boolean isExit(int n) {
 		return exits.contains(n);
 	}
@@ -51,7 +45,7 @@ public class Graph {
 
 		HashMap<Integer, Integer> distances = getDistances(start);
 
-		// find nearest exit
+		// find nearest exit (index of min)
 		int exit = start;
 		int exitDist = Integer.MAX_VALUE;
 		for (int e : exits) {
@@ -61,54 +55,51 @@ public class Graph {
 				exitDist = dist;
 			}
 		}
-
 		return getShorterPath(start, exit, distances);
 	}
 
-	public ArrayList<Integer> findPath(int start, int end) {
-		return getShorterPath(start, end, getDistances(start));
+	public ArrayList<Integer> getShorterPath(int start, int end) {
+		HashMap<Integer, Integer> distances = getDistances(start);
+		return getShorterPath(start, end, distances);
 	}
 
-	public ArrayList<Integer> getShorterPath(int start, int end, HashMap<Integer, Integer> distances) {
-
-		if(!distances.containsKey(end)) return null;
-
-		int current = end;
-		int currentDist= distances.get(end);
+	private ArrayList<Integer> getShorterPath(int start, int end, HashMap<Integer, Integer> distances) {
 
 		ArrayList<Integer> path = new ArrayList<>();
-		path.add(current);
-		while(currentDist > 0) {
-			int next = -1;
-			int nextDist = currentDist;
-			for (int child : nodes.get(current)) {
-				if(distances.get(child) < nextDist) {
-					next = child;
-					nextDist = distances.get(child);
+
+		if(distances.containsKey(end)) {
+			path.add(end);			
+			int current = end;
+			int currentDist= distances.get(end);
+			
+			while(currentDist > 0) {
+				int next = -1;// bof
+				int nextDist = currentDist;
+				for (int child : nodes.get(current)) {
+					if(distances.get(child) < nextDist) {
+						next = child;
+						nextDist = distances.get(child);
+					}
 				}
+				path.add(0, next);
+				current = next;
+				currentDist = nextDist;
 			}
-			path.add(0, next);
-			current = next;
-			currentDist = nextDist;
 		}
 		return path;
 	}
 
-	// eval distances of all reachable nodes
-	public HashMap<Integer, Integer> getDistances(int start) {
+	// BFS: eval distances of all reachable nodes
+	private HashMap<Integer, Integer> getDistances(int start) {
 
 		HashMap<Integer, Integer> distances = new HashMap<>();
-		distances.put(start, 0);
+		LinkedList<Integer> queue = new LinkedList<>();
 
-		ArrayList<Integer> queue = new ArrayList<>();
+		distances.put(start, 0);
 		queue.add(start);
 
 		while(!queue.isEmpty()) {
-			// TODO: look for better pile
-			// get last and remove it from queue
-			Integer current = queue.get(queue.size() - 1);
-			queue.remove(queue.size() - 1);
-
+			int current = queue.poll();			
 			for (int child : nodes.get(current)) {
 				if(distances.containsKey(child)) continue;
 				distances.put(child, distances.get(current) + 1);

@@ -14,7 +14,8 @@ public class Samples {
 			.addLink(1, 3)
 			.addLink(2, 3)
 			.addLink(0, 2)
-			.addLink(0, 1);
+			.addLink(0, 1)
+			.addExit(3);
 	}
 
 
@@ -57,7 +58,9 @@ public class Samples {
 
 			.addLink(11, 5)
 			.addLink(11, 6)
-			.addLink(11, 7);
+			.addLink(11, 7)
+
+			.addExit(0);
 	}
 
 		

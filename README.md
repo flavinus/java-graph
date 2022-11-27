@@ -1,12 +1,10 @@
-
 # Build
 `mvn package`
 
 # Run
 `java -cp target/app-1.0-SNAPSHOT.jar fr.flavinus.graph.App`
 
-
-mvn compile exec:java -Dexec.mainClass="fr.flavinus.graph.App"
+`mvn compile exec:java -Dexec.mainClass="fr.flavinus.graph.App"`
 
 # Resources
 
